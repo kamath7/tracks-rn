@@ -8,7 +8,11 @@ const SignUpScreen = ({ navigation }) => {
         <Text>Sign Up Screen</Text>
         <Button
           title="Go to Sign In"
-          onPress={() => navigation.navigation("SignIn")}
+          onPress={() => navigation.navigate("SignIn")}
+        />
+        <Button
+          title="Go to Main"
+          onPress={() => navigation.navigate("mainFlow")}
         />
       </View>
     </>
