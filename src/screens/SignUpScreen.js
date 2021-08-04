@@ -1,14 +1,20 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
 
-const SignUpScreen = () => {
-    return (
-        <View>
-            <Text>Sign Up Screen</Text>
-        </View>
-    )
-}
+const SignUpScreen = ({ navigation }) => {
+  return (
+    <>
+      <View>
+        <Text>Sign Up Screen</Text>
+        <Button
+          title="Go to Sign In"
+          onPress={() => navigation.navigation("SignIn")}
+        />
+      </View>
+    </>
+  );
+};
 
-export default SignUpScreen
+export default SignUpScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
