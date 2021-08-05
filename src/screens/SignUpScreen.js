@@ -1,20 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, View, } from "react-native";
+import {Text,Input,  Button} from 'react-native-elements'
 
 const SignUpScreen = ({ navigation }) => {
   return (
     <>
-      <View>
-        <Text>Sign Up Screen</Text>
-        <Button
-          title="Go to Sign In"
-          onPress={() => navigation.navigate("SignIn")}
-        />
-        <Button
-          title="Go to Main"
-          onPress={() => navigation.navigate("mainFlow")}
-        />
-      </View>
+      <Text h3>Sign Up for Master Tracker</Text>
+      <Input label="Email"/>
+      <Input label="Password"/>
+      <Button title="Sign Up"/>
     </>
   );
 };
