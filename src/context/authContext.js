@@ -1,25 +1,30 @@
-import createDataContext from './CreateDataContext';
-import trackerApi from '../api/tracker';
+import createDataContext from "./CreateDataContext";
+import trackerApi from "../api/tracker";
 
 const authReducer = (state, action) => {
   switch (action.type) {
+    case "ADD_ERROR":
+      return { ...state, errorMessage: action.payload };
     default:
       return state;
   }
 };
 
-const signup = dispatch => {
+const signup = (dispatch) => {
   return async ({ email, password }) => {
     try {
-      const response = await trackerApi.post('/signup', { email, password });
+      const response = await trackerApi.post("/signup", { email, password });
       console.log(response.data);
     } catch (err) {
-      console.log(err.response.data);
+      dispatch({
+        type: "ADD_ERROR",
+        payload: "Something is wrong! Try signing up again",
+      });
     }
   };
 };
 
-const signin = dispatch => {
+const signin = (dispatch) => {
   return ({ email, password }) => {
     // Try to signin
     // Handle success by updating state
@@ -27,7 +32,7 @@ const signin = dispatch => {
   };
 };
 
-const signout = dispatch => {
+const signout = (dispatch) => {
   return () => {
     // somehow sign out!!!
   };
@@ -36,5 +41,5 @@ const signout = dispatch => {
 export const { Provider, Context } = createDataContext(
   authReducer,
   { signin, signout, signup },
-  { isSignedIn: false }
+  { isSignedIn: false, errorMessage: "" }
 );
