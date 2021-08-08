@@ -1,14 +1,14 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useContext } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 const SignInScreen = () => {
-    return (
-        <View>
-            <Text>Sign In Screen</Text>
-        </View>
-    )
-}
+  return (
+    <View>
+      <Text>Sign In Screen</Text>
+    </View>
+  );
+};
 
-export default SignInScreen
+export default SignInScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
