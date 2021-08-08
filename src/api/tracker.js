@@ -1,4 +1,4 @@
 import axios from 'axios'
 export default axios.create({
-    baseURL: 'myapi.com'
+    baseURL: 'https://tracks-backend.herokuapp.com'
 })
