@@ -22,6 +22,17 @@ const clearErrorMsg = (dispatch) => () => {
   dispatch({ type: "clear_error_message" });
 };
 
+//signin if token already present on phone
+const tryLocalSignIn = (dispatch) => async () => {
+  const token = await AsyncStorage.getItem("token");
+  if (token) {
+    dispatch({ type: "signin", payload: token });
+    navigate("TrackList");
+  } else {
+    navigate("SignIn");
+  }
+};
+
 const signup =
   (dispatch) =>
   async ({ email, password }) => {
