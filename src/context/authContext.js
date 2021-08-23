@@ -2,12 +2,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import createDataContext from "./CreateDataContext";
 import trackerApi from "../api/tracker";
 import { navigate } from "../navigationRef";
+import axios from "axios";
 
 const authReducer = (state, action) => {
   switch (action.type) {
     case "add_error":
       return { ...state, errorMessage: action.payload };
-    case "signup":
+    case "signin":
       return { errorMessage: "", token: action.payload };
     default:
       return state;
@@ -20,7 +21,7 @@ const signup =
     try {
       const response = await trackerApi.post("/signup", { email, password });
       await AsyncStorage.setItem("token", response.data.token);
-      dispatch({ type: "signup", payload: response.data.token });
+      dispatch({ type: "signin", payload: response.data.token });
 
       navigate("TrackList");
     } catch (err) {
@@ -31,13 +32,25 @@ const signup =
     }
   };
 
-const signin = (dispatch) => {
-  return ({ email, password }) => {
+const signin =
+  (dispatch) =>
+  async ({ email, password }) => {
+    try {
+      const response = await trackerApi.post("/signin", { email, password });
+      await AsyncStorage.setItem("token", response.data.token);
+      dispatch({ type: "signin", payload: response.data.token });
+      navigate("TrackList");
+    } catch (error) {
+      dispatch({
+        type: "add_error",
+        payload: "Something wrong! Please try again",
+      });
+    }
+
     // Try to signin
     // Handle success by updating state
     // Handle failure by showing error message (somehow)
   };
-};
 
 const signout = (dispatch) => {
   return () => {
