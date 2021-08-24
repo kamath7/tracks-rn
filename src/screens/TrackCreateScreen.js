@@ -4,7 +4,7 @@ import { Text } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Map from "../components/Map";
 import { requestForegroundPermissionsAsync } from "expo-location";
-
+import '../mockLocations'
 const TrackCreateScreen = () => {
   const [permError, setPermError] = useState(null);
   const startWatching = async () => {
