@@ -9,10 +9,10 @@ import { useEffect, useState } from "react";
 export default (toTrack, callback) => {
   const [permError, setPermError] = useState(null);
   const [subs, setSubs] = useState(null); //to indicate whether watching
-  const sub = async () => {
+  const startWatching = async () => {
     try {
       const { granted } = await requestForegroundPermissionsAsync();
-      const subscriber = await watchPositionAsync(
+      const sub = await watchPositionAsync(
         {
           accuracy: Accuracy.BestForNavigation,
           timeInterval: 1000, //update every second
@@ -30,7 +30,7 @@ export default (toTrack, callback) => {
   };
   useEffect(() => {
     if (toTrack) {
-      startWatching();
+        startWatching();
     } else {
       subs.remove();
       setSubs(null);
