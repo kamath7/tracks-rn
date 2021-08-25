@@ -6,9 +6,10 @@ import {
 import { useEffect, useState } from "react";
 
 //custom hook
-export default (callback) => {
+export default (toTrack, callback) => {
   const [permError, setPermError] = useState(null);
-  const startWatching = async () => {
+  const [subs, setSubs] = useState(null); //to indicate whether watching
+  const sub = async () => {
     try {
       const { granted } = await requestForegroundPermissionsAsync();
       const subscriber = await watchPositionAsync(
@@ -19,6 +20,7 @@ export default (callback) => {
         },
         callback
       );
+      setSubs(sub);
       if (!granted) {
         throw new Error("Location permission not granted");
       }
@@ -27,8 +29,13 @@ export default (callback) => {
     }
   };
   useEffect(() => {
-    startWatching();
-  }, []);
+    if (toTrack) {
+      startWatching();
+    } else {
+      subs.remove();
+      setSubs(null);
+    }
+  }, [toTrack]);
 
   return [permError];
 };
