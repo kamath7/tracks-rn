@@ -7,7 +7,8 @@ import Map from "../components/Map";
 import useLocation from "../hooks/useLocation";
 // import "../mockLocations";
 import { Context as LocationContext } from "../context/locationContext";
-const TrackCreateScreen = ({isFocused}) => {
+import TrackForm from "../components/TrackForm";
+const TrackCreateScreen = ({ isFocused }) => {
   const { addLocation } = useContext(LocationContext);
   const [permError] = useLocation(isFocused, addLocation);
   return (
@@ -16,6 +17,7 @@ const TrackCreateScreen = ({isFocused}) => {
       <Map />
 
       {permError ? <Text>Please set permissions</Text> : null}
+      <TrackForm />
     </SafeAreaView>
   );
 };
