@@ -5,6 +5,7 @@ import TrackCreateScreen from "./src/screens/TrackCreateScreen";
 import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 import TrackListScreen from "./src/screens/TrackListScreen";
 import { Provider as AuthProvider } from "./src/context/authContext";
+import {Provider as LocationProvider} from './src/context/locationContext'
 import { setNavigator } from "./src/navigationRef";
 import React from "react";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
@@ -30,6 +31,7 @@ const SwitchNavigator = createSwitchNavigator({
 const App = createAppContainer(SwitchNavigator);
 export default () => {
   return (
+    <LocationProvider>
     <AuthProvider>
       <App
         ref={(navigator) => {
@@ -37,5 +39,6 @@ export default () => {
         }}
       />
     </AuthProvider>
+    </LocationProvider>
   );
 };
