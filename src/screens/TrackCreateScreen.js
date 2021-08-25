@@ -8,7 +8,7 @@ import {
   watchPositionAsync,
   Accuracy,
 } from "expo-location";
-import "../mockLocations";
+// import "../mockLocations";
 import {Context as LocationContext} from '../context/locationContext'
 const TrackCreateScreen = () => {
   const {addLocation} = useContext(LocationContext)
