@@ -35,6 +35,11 @@ export default (toTrack, callback) => {
       subs.remove();
       setSubs(null);
     }
+    return ()=>{
+      if(subs){
+        subs.remove()
+      }
+    }
   }, [toTrack, callback]);
 
   return [permError];
