@@ -10,7 +10,7 @@ const TrackForm = () => {
     stopRecording,
     changeName,
   } = useContext(LocationContext);
-  console.log(locations.length)
+  console.log(locations.length);
   return (
     <>
       <Spacer>
@@ -20,11 +20,18 @@ const TrackForm = () => {
           onChangeText={changeName}
         />
       </Spacer>
-      {!recording ? (
-        <Button title="Start Recording" onPress={startRecording} />
-      ) : (
-        <Button title="Stop Recording" onPress={stopRecording} />
-      )}
+      <Spacer>
+        {!recording ? (
+          <Button title="Start Recording" onPress={startRecording} />
+        ) : (
+          <Button title="Stop Recording" onPress={stopRecording} />
+        )}
+      </Spacer>
+      <Spacer>
+        {!recording && locations.length ? (
+          <Button title="Save Recording" />
+        ) : null}
+      </Spacer>
     </>
   );
 };
