@@ -8,38 +8,41 @@ import { useEffect, useState } from "react";
 //custom hook
 export default (toTrack, callback) => {
   const [permError, setPermError] = useState(null);
-  const [subs, setSubs] = useState(null); //to indicate whether watching
-  const startWatching = async () => {
-    try {
-      const { granted } = await requestForegroundPermissionsAsync();
-      const sub = await watchPositionAsync(
-        {
-          accuracy: Accuracy.BestForNavigation,
-          timeInterval: 1000, //update every second
-          distanceInterval: 10,
-        },
-        callback
-      );
-      setSubs(sub);
-      if (!granted) {
-        throw new Error("Location permission not granted");
-      }
-    } catch (e) {
-      setPermError(e);
-    }
-  };
+  // const [subs, setSubs] = useState(null); //to indicate whether watching
+
   useEffect(() => {
-    if (toTrack) {
-        startWatching();
-    } else {
-      subs.remove();
-      setSubs(null);
-    }
-    return ()=>{
-      if(subs){
-        subs.remove()
+    let subs;
+    const startWatching = async () => {
+      try {
+        const { granted } = await requestForegroundPermissionsAsync();
+        subs = await watchPositionAsync(
+          {
+            accuracy: Accuracy.BestForNavigation,
+            timeInterval: 1000, //update every second
+            distanceInterval: 10,
+          },
+          callback
+        );
+        if (!granted) {
+          throw new Error("Location permission not granted");
+        }
+      } catch (e) {
+        setPermError(e);
       }
+    };
+    if (toTrack) {
+      startWatching();
+    } else {
+      if (subs) {
+        subs.remove();
+      }
+      subs = null;
     }
+    return () => {
+      if (subs) {
+        subs.remove();
+      }
+    };
   }, [toTrack, callback]);
 
   return [permError];
