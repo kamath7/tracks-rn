@@ -5,6 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { withNavigationFocus } from "react-navigation";
 import Map from "../components/Map";
 import useLocation from "../hooks/useLocation";
+import {FontAwesome} from '@expo/vector-icons'
+
 // import "../mockLocations";
 import { Context as LocationContext } from "../context/locationContext";
 import TrackForm from "../components/TrackForm";
@@ -24,6 +26,10 @@ const TrackCreateScreen = ({ isFocused }) => {
     </SafeAreaView>
   );
 };
+TrackCreateScreen.navigationOptions = {
+  title: 'Add Track',
+  tabBarIcon: <FontAwesome name="plus" size={21} />
+}
 
 export default withNavigationFocus(TrackCreateScreen);
 
